@@ -1,0 +1,7 @@
+kafka:
+  clusters:
+    - name: cluster-01
+      bootstrapServers: kafka:9092
+      zookeeper: zookepeer:2181
+      schemaRegistry: http://schema-registry:8080/apis/ccompat/v6
+      defaultValueSerde: String

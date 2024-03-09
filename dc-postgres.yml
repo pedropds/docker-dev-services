@@ -4,6 +4,8 @@ services:
   postgres_database:
     image: postgres:${POSTGRES_VERSION}
     restart: unless-stopped
+    networks:
+      - dev-service
     environment:
       - POSTGRES_USER=${POSTGRES_USERNAME}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}

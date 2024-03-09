@@ -7,20 +7,42 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - dev-service
     ports:
       - 2181:2181
   
   kafka:
-    image: confluentinc/cp-kafka:${KAFKA_VERSION}
+    image: confluentinc/cp-kafka:latest
     depends_on:
       - zookeeper
+    networks:
+      - dev-service
     ports:
-      - 9092:9092
+      - 29092:29092
     environment:
       KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_LISTENERS: LISTENER_EXTERNAL://0.0.0.0:9092,LISTENER_INTERNAL://0.0.0.0:29092
-      KAFKA_ADVERTISED_LISTENERS: LISTENER_EXTERNAL://localhost:9092,LISTENER_INTERNAL://kafka:29092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_EXTERNAL:PLAINTEXT,LISTENER_INTERNAL:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_INTERNAL
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+
+      K_BOOTSTRAP_SERVER: --bootstrap-server localhost:9092
+      K_TOPIC_1: input-topic
+      K_TOPIC_2: output-topic
+
+  
+  schemaregistry:
+    image: confluentinc/cp-schema-registry:latest
+    restart: always
+    networks:
+      - dev-service
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schemaregistry
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: "PLAINTEXT://kafka:9092"
+    ports:
+      - 8081:8081
