@@ -15,21 +15,19 @@ declare -a SERVICE_FILES=(
   "dc-minio.yml"
 )
 
-# Define which services should be selected by default
-DEFAULT_SELECTION=(
-)
+# Define which services should be selected by default (using indices)
+DEFAULT_SELECTION=()
 
-# Prepare dialog options (default "OFF" for each, or "ON" if it is in the DEFAULT_SELECTION list)
+# Prepare dialog options
 MENU_OPTIONS=()
 for i in "${!SERVICE_NAMES[@]}"; do
   name="${SERVICE_NAMES[$i]}"
-  file="${SERVICE_FILES[$i]}"
 
-  # Check if the service is in the default selection list
-  if [[ " ${DEFAULT_SELECTION[@]} " =~ " ${file} " ]]; then
-    MENU_OPTIONS+=("$file" "$name" "ON")
+  # Check if the index is in the default selection list
+  if [[ " ${DEFAULT_SELECTION[@]} " =~ " $i " ]]; then
+    MENU_OPTIONS+=("$i" "$name" "ON")
   else
-    MENU_OPTIONS+=("$file" "$name" "OFF")
+    MENU_OPTIONS+=("$i" "$name" "OFF")
   fi
 done
 
@@ -52,10 +50,10 @@ fi
 # Set COMPOSE_FILE environment variable, always starting with dc-networks.yml
 COMPOSE_FILES="dc-networks.yml"
 
-# Append selected services to COMPOSE_FILES
-for service in ${SELECTED}; do
-  # Only add the service files to COMPOSE_FILES (not names)
-  COMPOSE_FILES="$COMPOSE_FILES:$service"
+# Append selected services to COMPOSE_FILES by mapping indices to filenames
+for index in $SELECTED; do
+  service_file="${SERVICE_FILES[$index]}"
+  COMPOSE_FILES="$COMPOSE_FILES:$service_file"
 done
 
 # Export the COMPOSE_FILE environment variable
