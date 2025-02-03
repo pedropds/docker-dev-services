@@ -1,7 +1,4 @@
-version: "3.8"
-
 services:
-
   kafka-tools:
     image: provectuslabs/kafka-ui:latest
     networks:
@@ -12,4 +9,3 @@ services:
       - "28080:8080"
     volumes:
       - ./kafka_ui/application.yml:/toolbox/application.yml
-

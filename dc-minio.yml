@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   minio_service:
     image: minio/minio:${MINIO_VERSION}
