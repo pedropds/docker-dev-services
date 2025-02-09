@@ -1,6 +1,7 @@
 #!/bin/bash
 
-COMPOSE_FILE="dc-networks.yml:dc-kafka-yml:dc-kafka-tools.yml:dc-minio.yml:dc-postgres.sql"
+# Source the common environment variables
+source ./env.sh
 
 echo "Stopping all services..."
 docker-compose -f $COMPOSE_FILE down

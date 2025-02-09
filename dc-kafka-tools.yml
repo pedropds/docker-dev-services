@@ -4,8 +4,8 @@ services:
     networks:
       - dev-service
     environment:
-      SPRING_CONFIG_ADDITIONAL-LOCATION: /toolbox/application.yml
+      SPRING_CONFIG_ADDITIONAL-LOCATION: /docker_dev_services/application.yml
     ports:
       - "28080:8080"
     volumes:
-      - ./kafka_ui/application.yml:/toolbox/application.yml
+      - ./kafka_ui/application.yml:/docker_dev_services/application.yml
