@@ -1,6 +1,5 @@
 kafka:
   clusters:
-    - name: cluster-01
+    - name: docker-dev-services
       bootstrapServers: kafka:9092
-      zookeeper: zookepeer:2181
       defaultValueSerde: String
