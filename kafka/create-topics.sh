@@ -24,7 +24,6 @@ for topic in "${TOPICS[@]}"; do
   else
     echo "Creating topic '$topic'..."
     kafka-topics --bootstrap-server "$KAFKA_BROKER" --create --topic "$topic" --partitions 1 --replication-factor 1
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - Topic '$topic' created"
   fi
   sleep 2
 done
