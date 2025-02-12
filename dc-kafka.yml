@@ -28,7 +28,7 @@ services:
       - ./kafka/data:/var/lib/kafka/data
 
   init-topics:
-    image: confluentinc/cp-kafka:latest
+    image: confluentinc/cp-kafka:${KAFKA_VERSION}
     depends_on:
       - kafka
     networks:
