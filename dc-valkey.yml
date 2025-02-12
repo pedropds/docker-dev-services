@@ -1,8 +1,8 @@
 services:
   valkey:
-    image: valkey/valkey:8.0.2-alpine
+    image: valkey/${VALKEY_VERSION}
     environment:
-      - ALLOW_EMPTY_PASSWORD # is recommended only for development.
+      # It is only recommended for development.
       - ALLOW_EMPTY_PASSWORD=yes
       - VALKEY_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
     ports:

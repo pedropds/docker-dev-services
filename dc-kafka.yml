@@ -1,6 +1,6 @@
 services:
   kafka:
-    image: confluentinc/cp-kafka:latest
+    image: confluentinc/cp-kafka:${KAFKA_VERSION}
     container_name: kafka
     networks:
       - dev-service
