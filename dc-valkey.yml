@@ -1,0 +1,15 @@
+services:
+  valkey:
+    image: valkey/valkey:8.0.2-alpine
+    environment:
+      - ALLOW_EMPTY_PASSWORD # is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - VALKEY_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - "6379:6379"
+    volumes:
+      - "valkey_data:/bitnami/valkey/data"
+
+volumes:
+  valkey_data:
+    driver: local

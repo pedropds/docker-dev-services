@@ -6,6 +6,7 @@ declare -a SERVICE_NAMES=(
   "Kafka Tools"
   "PostgreSQL"
   "MinIO"
+  "Valkey"
 )
 
 declare -a SERVICE_FILES=(
@@ -13,6 +14,7 @@ declare -a SERVICE_FILES=(
   "dc-kafka-tools.yml"
   "dc-postgres.yml"
   "dc-minio.yml"
+  "dc-valkey.yml"
 )
 
 # Define which services should be selected by default (using indices)
